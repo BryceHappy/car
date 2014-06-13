@@ -67,11 +67,15 @@ class Car_model extends CI_Model
         return $datas;
     }
 
-    public function get_all_rate()
+    public function get_all_rate($id = null)
     {
-        $users = $this->db->order_by('id')
-            ->get('car_rate')
-            ->result_array();
+        $this->db->order_by('id');
+
+        if(!empty($id))
+        $this->db->where('id', $id);
+// print_r($id);
+// exit;
+        $users = $this->db->get('car_rate')->result_array();
 
         return $users;
     }
@@ -229,6 +233,14 @@ class Car_model extends CI_Model
         return $data;
     }
 
+    public function modifier()
+    {        
+        $data['mdate'] = date("Y-m-d H:m:s");
+        $data['modifier'] = $this->session->userdata['aid'];
+
+        return $data;
+    }
+
     public function query_car_type($id)
     {
         $data = $this->db->get_where('car_type', array('brand_id' => $id))->result_array();
@@ -244,9 +256,14 @@ class Car_model extends CI_Model
         $this->db->delete('users', array('email' => $email));
     }
 
-    public function update($email, $password)
+    public function update($table, $key = array(), $data = array())
     {
-        $this->db->update('users', array('password' => $password), array('email' => $email));
+        $u = $this->modifier();
+        $data = array_merge($data,$u);
+        // $this->db->update($table, $data);
+
+        $this->db->where($key);
+        $this->db->update($table, $data); 
     }
 
     public function check_password($uid, $password)

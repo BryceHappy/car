@@ -12,7 +12,7 @@
           <tr>
             <th><i class="icon-tags"></i> ID</th>
             <th><i class="icon-envelope"></i> 專案名稱</th>
-            <th><i class="icon-envelope"></i> 頭期款</th>
+            <th><i class="icon-envelope"></i> 貸款金額</th>
             <th><i class="icon-envelope"></i> 利率</th>
             <th><i class="icon-envelope"></i> 分期數</th>            
           </tr>
@@ -21,7 +21,7 @@
         <? foreach($datas as $data): ?>
           <tr>
             <td id="id_<?=$data['id']; ?>"><?=$data['id']; ?></td>
-            <td id="name_<?=$data['id']; ?>"><?=$data['name']; ?></td>
+            <td id="name_<?=$data['id']; ?>"><a href="<? echo $url.$data['id'];?>"><?=$data['name']; ?></a></td>
             <td id="offer_loan_<?=$data['id']; ?>"><?=$data['offer_loan']; ?></td>
             <td id="offer_rate_<?=$data['id']; ?>"><?=$data['offer_rate']; ?></td>
             <td id="offer_month_<?=$data['id']; ?>"><?=$data['offer_month']; ?></td>            

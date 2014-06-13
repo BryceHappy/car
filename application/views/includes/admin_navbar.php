@@ -15,8 +15,8 @@
           <ul class="dropdown-menu">
             <li id="nav-car_rate"><?=anchor('carrate', '列表'); ?></li>
             <li id="nav-car_rate_add"><?=anchor('carrate/add', '新增'); ?></li>
-            <li id="nav-edit"><?=anchor('carrate', '刪除'); ?></li>
-            <li id="nav-edit"><?=anchor('carrate', '修改'); ?></li>       
+            <li id="nav-car_rate_edit"><?=anchor('carrate', '刪除'); ?></li>
+    
           </ul>
         </li> 
         <li class="divider-vertical"></li>		

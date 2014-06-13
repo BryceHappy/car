@@ -16,8 +16,10 @@ class Carrate extends CI_Controller
         // print_r($this->session->userdata);
         // exit;
         $datas = $this->car_model->get_all_rate();
+        $url = site_url().'/carrate/edit/';
         $this->load->view('car/car_rate', array(
-            'datas' => $datas
+            'datas' => $datas,
+            'url' => $url
         ));
     }
     
@@ -79,15 +81,46 @@ class Carrate extends CI_Controller
         }
     }
     
-    public function edit()
+    public function edit($id)
     {
-        $users = $this->user_model->get_emails();
-        
-        $this->load->view('admin/admin_edit', array(
-            'users' => $users 
+        if(empty($id))
+            redirect('carrate');
+
+        $data_ary = $this->car_model->get_all_rate($id);
+        $url = base_url().'rate/edit/';
+        $datas = $data_ary[0];
+// print_r($datas);
+// exit;
+        $this->load->view('car/car_rate_edit', array(
+            'datas' => $datas,
+            'url' => $url
         ));
     }
     
+    public function edit_data($id)
+    {
+        // print_r($this->input->post());
+        if(empty($id)){
+            $message = "Editing Error!";
+            $this->json_response(FALSE, $message);
+        } else {
+            $key = array('id' => $id);
+        }
+
+            $this->car_model->update('car_rate',$key,$this->input->post());
+            
+            $message = "Editing for <strong>".$this->input->post('email')."</strong> has been done!";
+            $this->json_response(TRUE, $message);
+
+        // if ($this->form_validation->run() == FALSE) {
+        //     $message = "<strong>Editing</strong> failed!";
+        //     $this->json_response(FALSE, $message);
+        // } else {
+
+        // }
+    }
+    
+
     public function edit_user()
     {
         sleep(1);
